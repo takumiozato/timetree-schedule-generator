@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 type InputProps = {
-  placeholder: string;
+    placeholder?: string;
 };
 
 const StyledInput = styled.input`
@@ -14,5 +14,5 @@ const StyledInput = styled.input`
 `;
 
 export const Input: FC<InputProps> = ({ placeholder }) => {
-  return <StyledInput type="text" placeholder={placeholder} />;
+    return <StyledInput type="text" placeholder={placeholder} />;
 };

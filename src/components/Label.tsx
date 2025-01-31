@@ -14,15 +14,15 @@ const RequiredMark = styled.span`
 `;
 
 type LabelProps = {
-  children: string;
-  required?: boolean;
+    children: string;
+    required?: boolean;
 };
 
 export const Label: FC<LabelProps> = ({ children, required }) => {
-  return (
-    <StyledLabel>
-      {children}
-      {required && <RequiredMark>*</RequiredMark>}
-    </StyledLabel>
-  );
+    return (
+        <StyledLabel>
+            {children}
+            {required && <RequiredMark>*</RequiredMark>}
+        </StyledLabel>
+    );
 };
