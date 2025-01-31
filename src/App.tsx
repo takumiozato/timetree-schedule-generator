@@ -5,6 +5,7 @@ import { Input } from './components/Input';
 import { DateInput } from './components/DateInput';
 import { TimeSelect } from './components/TimeSelect';
 import { Checkbox } from './components/Checkbox';
+import { TextArea } from './components/Textarea';
 
 const StyledMainWrapper = styled.div`
   background-color: #2ecc87;
@@ -28,28 +29,28 @@ const StyledMainContent = styled.div`
     font-weight: 700;
     line-height: 1.3;
   }
-`
+`;
 
 const StyledRow = styled.div`
   width: 100%;
-`
+`;
 
 const StyledDateTimeRow = styled.div`
-    display: flex;
-    column-gap: 16px;
-    margin-bottom: 12px;
-`
+  display: flex;
+  column-gap: 16px;
+  margin-bottom: 12px;
+`;
 
 const StyledDateTimeWrapper = styled.div`
-    display: flex;
-    column-gap: 8px;
-`
+  display: flex;
+  column-gap: 8px;
+`;
 
 const StyledAllDayCheckboxLabel = styled.label`
-    display: flex;
-    align-items: center;
-    column-gap: 8px;
-`
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+`;
 
 function App() {
   return (
@@ -68,21 +69,30 @@ function App() {
               <Label required>開始日時</Label>
               <StyledDateTimeWrapper>
                 <DateInput />
-                <TimeSelect value="00:00" onChange={() => { }} />
+                <TimeSelect value="00:00" onChange={() => {}} />
               </StyledDateTimeWrapper>
             </InputWrapper>
             <InputWrapper>
               <Label required>終了日時</Label>
               <StyledDateTimeWrapper>
                 <DateInput />
-                <TimeSelect value="00:00" onChange={() => { }} />
+                <TimeSelect value="00:00" onChange={() => {}} />
               </StyledDateTimeWrapper>
             </InputWrapper>
           </StyledDateTimeRow>
           <StyledAllDayCheckboxLabel>
-            <Checkbox checked={false} onChange={() => { }} />
+            <Checkbox checked={false} onChange={() => {}} />
             終日
           </StyledAllDayCheckboxLabel>
+        </StyledRow>
+        <StyledRow>
+          <InputWrapper>
+            <Label>メモ</Label>
+            <TextArea
+              placeholder="本イベントは「普段からTimeTreeを愛用くださっているみなさまに、サービスやわたしたちのことをいろいろ知っていただき、TimeTreeをもっと好きになってもらいたい！」という思いで企画しています。"
+              rows={4}
+            />
+          </InputWrapper>
         </StyledRow>
       </StyledMainContent>
     </StyledMainWrapper>

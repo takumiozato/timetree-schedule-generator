@@ -3,6 +3,7 @@ body {
     font-family: YuGothic;
 }
 
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: #C1C1C1;
 }
