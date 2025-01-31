@@ -69,19 +69,19 @@ function App() {
               <Label required>開始日時</Label>
               <StyledDateTimeWrapper>
                 <DateInput />
-                <TimeSelect value="00:00" onChange={() => {}} />
+                <TimeSelect value="00:00" onChange={() => { }} />
               </StyledDateTimeWrapper>
             </InputWrapper>
             <InputWrapper>
               <Label required>終了日時</Label>
               <StyledDateTimeWrapper>
                 <DateInput />
-                <TimeSelect value="00:00" onChange={() => {}} />
+                <TimeSelect value="00:00" onChange={() => { }} />
               </StyledDateTimeWrapper>
             </InputWrapper>
           </StyledDateTimeRow>
           <StyledAllDayCheckboxLabel>
-            <Checkbox checked={false} onChange={() => {}} />
+            <Checkbox checked={false} onChange={() => { }} />
             終日
           </StyledAllDayCheckboxLabel>
         </StyledRow>
@@ -92,6 +92,18 @@ function App() {
               placeholder="本イベントは「普段からTimeTreeを愛用くださっているみなさまに、サービスやわたしたちのことをいろいろ知っていただき、TimeTreeをもっと好きになってもらいたい！」という思いで企画しています。"
               rows={4}
             />
+          </InputWrapper>
+        </StyledRow>
+        <StyledRow>
+          <InputWrapper>
+            <Label>場所</Label>
+            <Input placeholder="東京都新宿区西新宿6-6-3 新宿国際ビルディング新館503" />
+          </InputWrapper>
+        </StyledRow>
+        <StyledRow>
+          <InputWrapper>
+            <Label>添付URL</Label>
+            <Input placeholder="https://timetreeapp.com/" />
           </InputWrapper>
         </StyledRow>
       </StyledMainContent>
