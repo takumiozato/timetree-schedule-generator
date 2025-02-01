@@ -78,7 +78,7 @@ function App() {
         <StyledRow>
           <InputWrapper>
             <Label required>予定タイトル</Label>
-            <Input placeholder="TimeTree Day" />
+            <Input type='text' placeholder="TimeTree Day" />
           </InputWrapper>
         </StyledRow>
         <StyledRow>
@@ -115,13 +115,13 @@ function App() {
         <StyledRow>
           <InputWrapper>
             <Label>場所</Label>
-            <Input placeholder="東京都新宿区西新宿6-6-3 新宿国際ビルディング新館503" />
+            <Input type="text" placeholder="東京都新宿区西新宿6-6-3 新宿国際ビルディング新館503" />
           </InputWrapper>
         </StyledRow>
         <StyledRow>
           <InputWrapper>
             <Label>添付URL</Label>
-            <Input placeholder="https://timetreeapp.com/" />
+            <Input type="url" placeholder="https://timetreeapp.com/" />
           </InputWrapper>
         </StyledRow>
         <StyledButtonWrapper>
