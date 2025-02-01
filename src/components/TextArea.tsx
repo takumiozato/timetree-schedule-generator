@@ -2,8 +2,10 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 type TextAreaProps = {
-  placeholder?: string;
-  rows?: number;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    placeholder?: string;
+    rows?: number;
 };
 
 const StyledTextArea = styled.textarea`
@@ -15,6 +17,6 @@ const StyledTextArea = styled.textarea`
   line-height: 1.4;
 `;
 
-export const TextArea: FC<TextAreaProps> = ({ placeholder, rows = 4 }) => {
-  return <StyledTextArea placeholder={placeholder} rows={rows} />;
+export const TextArea: FC<TextAreaProps> = ({ value, onChange, placeholder, rows = 4 }) => {
+    return <StyledTextArea {...{ value, onChange, placeholder, rows }} />;
 };

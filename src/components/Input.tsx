@@ -2,8 +2,10 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 type InputProps = {
-    placeholder?: string;
     type: "text" | "url";
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    placeholder?: string;
 };
 
 const StyledInput = styled.input`
@@ -14,6 +16,6 @@ const StyledInput = styled.input`
   font-weight: 500;
 `;
 
-export const Input: FC<InputProps> = ({ placeholder, type }) => {
-    return <StyledInput type={type} placeholder={placeholder} />;
+export const Input: FC<InputProps> = ({ type, value, onChange, placeholder }) => {
+    return <StyledInput {...{ type, value, onChange, placeholder }} />;
 };

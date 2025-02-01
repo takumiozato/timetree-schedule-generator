@@ -62,6 +62,9 @@ const StyledButtonWrapper = styled.div`
 `;
 
 function App() {
+  // 予定タイトル
+  const [title, setTitle] = useState('');
+
   // 開始日時
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [startTime, setStartTime] = useState('');
@@ -71,6 +74,20 @@ function App() {
   // 終日チェックボックス
   const [allDay, setAllDay] = useState(false);
 
+  // メモ
+  const [memo, setMemo] = useState('');
+
+  // 場所
+  const [location, setLocation] = useState('');
+
+  // 添付URL
+  const [url, setUrl] = useState('');
+
+  // Todo： QRコード生成処理
+  const onClickGenerateQRCode = () => {
+    console.log('QRコード生成処理');
+  }
+
   return (
     <StyledMainWrapper>
       <StyledMainContent>
@@ -78,7 +95,7 @@ function App() {
         <StyledRow>
           <InputWrapper>
             <Label required>予定タイトル</Label>
-            <Input type='text' placeholder="TimeTree Day" />
+            <Input type='text' value={title} onChange={(e) => setTitle(e.target.value)} placeholder="TimeTree Day" />
           </InputWrapper>
         </StyledRow>
         <StyledRow>
@@ -107,6 +124,8 @@ function App() {
           <InputWrapper>
             <Label>メモ</Label>
             <TextArea
+              value={memo}
+              onChange={(e) => setMemo(e.target.value)}
               placeholder="本イベントは「普段からTimeTreeを愛用くださっているみなさまに、サービスやわたしたちのことをいろいろ知っていただき、TimeTreeをもっと好きになってもらいたい！」という思いで企画しています。"
               rows={4}
             />
@@ -115,17 +134,17 @@ function App() {
         <StyledRow>
           <InputWrapper>
             <Label>場所</Label>
-            <Input type="text" placeholder="東京都新宿区西新宿6-6-3 新宿国際ビルディング新館503" />
+            <Input type="text" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="東京都新宿区西新宿6-6-3 新宿国際ビルディング新館503" />
           </InputWrapper>
         </StyledRow>
         <StyledRow>
           <InputWrapper>
             <Label>添付URL</Label>
-            <Input type="url" placeholder="https://timetreeapp.com/" />
+            <Input type="url" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://timetreeapp.com/" />
           </InputWrapper>
         </StyledRow>
         <StyledButtonWrapper>
-          <Button onClick={() => { }}>QRコード生成</Button>
+          <Button onClick={onClickGenerateQRCode}>QRコード生成</Button>
         </StyledButtonWrapper>
       </StyledMainContent>
     </StyledMainWrapper>
