@@ -6,6 +6,7 @@ import { DateInput } from './components/DateInput';
 import { TimeSelect } from './components/TimeSelect';
 import { Checkbox } from './components/Checkbox';
 import { TextArea } from './components/Textarea';
+import { useState } from 'react';
 
 const StyledMainWrapper = styled.div`
   background-color: #2ecc87;
@@ -47,12 +48,15 @@ const StyledDateTimeWrapper = styled.div`
 `;
 
 const StyledAllDayCheckboxLabel = styled.label`
-  display: flex;
+  display: inline-flex;
   align-items: center;
   column-gap: 8px;
+  cursor: pointer;
 `;
 
 function App() {
+  const [allDay, setAllDay] = useState(false);
+
   return (
     <StyledMainWrapper>
       <StyledMainContent>
@@ -81,7 +85,7 @@ function App() {
             </InputWrapper>
           </StyledDateTimeRow>
           <StyledAllDayCheckboxLabel>
-            <Checkbox checked={false} onChange={() => { }} />
+            <Checkbox checked={allDay} onChange={() => setAllDay(!allDay)} />
             終日
           </StyledAllDayCheckboxLabel>
         </StyledRow>
