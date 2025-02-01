@@ -7,6 +7,7 @@ import { TimeSelect } from './components/TimeSelect';
 import { Checkbox } from './components/Checkbox';
 import { TextArea } from './components/Textarea';
 import { useState } from 'react';
+import { Button } from './components/Button';
 
 const StyledMainWrapper = styled.div`
   background-color: #2ecc87;
@@ -52,6 +53,12 @@ const StyledAllDayCheckboxLabel = styled.label`
   align-items: center;
   column-gap: 8px;
   cursor: pointer;
+`;
+
+const StyledButtonWrapper = styled.div`
+  display: flex;
+  justify-content: right;
+  width: 100%;
 `;
 
 function App() {
@@ -117,6 +124,9 @@ function App() {
             <Input placeholder="https://timetreeapp.com/" />
           </InputWrapper>
         </StyledRow>
+        <StyledButtonWrapper>
+          <Button onClick={() => { }}>QRコード生成</Button>
+        </StyledButtonWrapper>
       </StyledMainContent>
     </StyledMainWrapper>
   );
