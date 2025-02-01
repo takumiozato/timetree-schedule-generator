@@ -1,6 +1,13 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     color: #3B4044;
     font-family: YuGothic;
+    box-sizing: border-box;
 }
 
 input::placeholder,
