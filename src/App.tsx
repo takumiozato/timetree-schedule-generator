@@ -5,16 +5,22 @@ import { Input } from './components/Input';
 import { DateInput } from './components/DateInput';
 import { TimeSelect } from './components/TimeSelect';
 import { Checkbox } from './components/Checkbox';
-import { TextArea } from './components/Textarea';
+import { TextArea } from './components/TextArea';
 import { useState } from 'react';
 import { Button } from './components/Button';
+import QRCode from 'qrcode';
+import { generateURL } from './generateURL';
 
 const StyledMainWrapper = styled.div`
   background-color: #2ecc87;
   padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
 `;
 
 const StyledMainContent = styled.div`
+  width: 100%;
   max-width: 608px;
   margin: 0 auto;
   padding: 24px 32px;
@@ -61,6 +67,19 @@ const StyledButtonWrapper = styled.div`
   width: 100%;
 `;
 
+const StyledGeneratedArea = styled.div`
+  > p {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  > img {
+    display: block;
+    margin: 0 auto;
+  }
+`;
+
 function App() {
   // 予定タイトル
   const [title, setTitle] = useState('');
@@ -83,10 +102,23 @@ function App() {
   // 添付URL
   const [url, setUrl] = useState('');
 
-  // Todo： QRコード生成処理
-  const onClickGenerateQRCode = () => {
-    console.log('QRコード生成処理');
-  }
+  // QRコードURL
+  const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
+
+  // QRコード生成処理
+  const onClickGenerateQRCode = async () => {
+    const timetrUrl = generateURL(startDate, startTime, endDate, endTime, title, memo, allDay, location, url);
+
+    // QRコード生成
+    QRCode.toDataURL(timetrUrl, (err, url) => {
+      if (err) {
+        console.error('QRコード生成エラー:', err);
+      } else {
+        // QRコードのURLをステートにセット
+        setQrCodeUrl(url);
+      }
+    });
+  };
 
   return (
     <StyledMainWrapper>
@@ -146,7 +178,18 @@ function App() {
         <StyledButtonWrapper>
           <Button onClick={onClickGenerateQRCode}>QRコード生成</Button>
         </StyledButtonWrapper>
+        {/* QRコードが生成された場合に表示 */}
       </StyledMainContent>
+      {qrCodeUrl && (
+        <StyledMainContent>
+          <StyledRow>
+            <StyledGeneratedArea>
+              <p>生成結果</p>
+              <img src={qrCodeUrl} alt="Generated QR Code" />
+            </StyledGeneratedArea>
+          </StyledRow>
+        </StyledMainContent>
+      )}
     </StyledMainWrapper>
   );
 }
