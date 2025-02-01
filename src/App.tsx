@@ -136,14 +136,18 @@ function App() {
               <Label required>開始日時</Label>
               <StyledDateTimeWrapper>
                 <DateInput value={startDate} onChange={(date) => setStartDate(date)} />
-                <TimeSelect value={startTime} onChange={(value) => setStartTime(value)} />
+                {!allDay && (
+                  <TimeSelect value={startTime} onChange={(value) => setStartTime(value)} />
+                )}
               </StyledDateTimeWrapper>
             </InputWrapper>
             <InputWrapper>
               <Label required>終了日時</Label>
               <StyledDateTimeWrapper>
                 <DateInput value={endDate} onChange={(date) => setEndDate(date)} />
-                <TimeSelect value={endTime} onChange={(value) => setEndTime(value)} />
+                {!allDay && (
+                  <TimeSelect value={endTime} onChange={(value) => setEndTime(value)} />
+                )}
               </StyledDateTimeWrapper>
             </InputWrapper>
           </StyledDateTimeRow>
