@@ -1,12 +1,5 @@
 import pako from 'pako';
-
-// 日時フォーマット
-const formatDate = (date: Date | null, time: string) => {
-    if (!date) return '';
-    const dateObj = new Date(date);
-    const timeObj = time ? new Date(`${dateObj.toISOString().split('T')[0]}T${time}:00`) : dateObj;
-    return timeObj.toISOString().replace(/[-:]/g, '').slice(0, 15) + '+0900'; // 日本時間としてフォーマット
-};
+import { formatDate } from './formatDate';
 
 export function generateURL(startDate: Date | null, startTime: string, endDate: Date | null, endTime: string, title: string, memo: string, allDay: boolean, location: string, url: string) {
     const start = formatDate(startDate, startTime);
