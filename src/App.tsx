@@ -55,6 +55,13 @@ const StyledAllDayCheckboxLabel = styled.label`
 `;
 
 function App() {
+  // 開始日時
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [startTime, setStartTime] = useState('');
+  // 終了日時
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [endTime, setEndTime] = useState('');
+  // 終日チェックボックス
   const [allDay, setAllDay] = useState(false);
 
   return (
@@ -72,15 +79,15 @@ function App() {
             <InputWrapper>
               <Label required>開始日時</Label>
               <StyledDateTimeWrapper>
-                <DateInput />
-                <TimeSelect value="00:00" onChange={() => { }} />
+                <DateInput value={startDate} onChange={(date) => setStartDate(date)} />
+                <TimeSelect value={startTime} onChange={(value) => setStartTime(value)} />
               </StyledDateTimeWrapper>
             </InputWrapper>
             <InputWrapper>
               <Label required>終了日時</Label>
               <StyledDateTimeWrapper>
-                <DateInput />
-                <TimeSelect value="00:00" onChange={() => { }} />
+                <DateInput value={endDate} onChange={(date) => setEndDate(date)} />
+                <TimeSelect value={endTime} onChange={(value) => setEndTime(value)} />
               </StyledDateTimeWrapper>
             </InputWrapper>
           </StyledDateTimeRow>
