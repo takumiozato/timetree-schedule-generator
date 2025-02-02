@@ -6,12 +6,11 @@ on:
       - main
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 jobs:
-  build:
+  deploy:
+    if: github.ref != 'refs/heads/gh-pages'
     runs-on: ubuntu-latest
 
     steps:
@@ -30,19 +29,8 @@ jobs:
       - name: ビルド
         run: npm run build
 
-      - name: ビルド成果物をアップロード
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
       - name: GitHub Pages にデプロイ
-        id: deployment
-        uses: actions/deploy-pages@v2
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
