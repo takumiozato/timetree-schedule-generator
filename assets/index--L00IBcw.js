@@ -111,6 +111,7 @@ Error generating stack: `+m.message+`
   font-weight: 500;
   line-height: 1.4;
   outline: none;
+  resize: none;
 
   &:focus {
     border-color: ${({$hasError:t})=>t?"#f44336":"#2495E7"};
