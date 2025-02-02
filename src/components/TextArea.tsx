@@ -18,6 +18,7 @@ const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
   font-weight: 500;
   line-height: 1.4;
   outline: none;
+  resize: none;
 
   &:focus {
     border-color: ${({ $hasError }) => ($hasError ? '#f44336' : '#2495E7')};
