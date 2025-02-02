@@ -11,6 +11,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { Tooltip } from './components/Tooltip';
 import { getDateOnly } from './getDateOnly';
 import { useQRCode } from './hooks/useQRCode';
+import { isValidEndTime } from './helpers/validation';
 
 
 const StyledMainWrapper = styled.div`
@@ -104,34 +105,6 @@ function App() {
 
   const allDay = watch("allDay");
 
-  // 終了日時が開始日時を超えていないかチェック
-  const isValidEndTime = () => {
-    const startDate = watch("startDate");
-    const endDate = watch("endDate");
-    const startTime = watch("startTime");
-    const endTime = watch("endTime");
-
-    const startDateOnly = getDateOnly(startDate);
-    const endDateOnly = getDateOnly(endDate);
-
-    const errorMessage = "終了日時が開始日時を超えています";
-
-    if (allDay) {
-      if (startDateOnly > endDateOnly) {
-        return errorMessage;
-      }
-    } else {
-      const startHour = parseInt(startTime.split(":")[0], 10);
-      const endHour = parseInt(endTime.split(":")[0], 10);
-
-      if (startDateOnly > endDateOnly || (startDateOnly == endDateOnly && endHour < startHour)) {
-        return errorMessage;
-      }
-    }
-
-    return true;
-  };
-
   const onSubmit = (data: any) => {
     // フォームデータを渡してQRコード生成
     generateQRCode(data);
@@ -199,7 +172,7 @@ function App() {
                     name="endDate"
                     control={control}
                     defaultValue={new Date()}
-                    rules={{ required: "終了日時は必須です", validate: isValidEndTime, }}
+                    rules={{ required: "終了日時は必須です", validate: () => isValidEndTime(watch, allDay), }}
                     render={({ field: { ref, ...rest } }) => <DateInput {...rest} id="endDate" hasError={!!errors.endDate?.message} />}
                   />
                   {errors.endDate?.message && typeof errors.endDate.message === "string" &&
