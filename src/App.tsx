@@ -148,6 +148,7 @@ function App() {
               <Controller
                 name="title"
                 control={control}
+                defaultValue=""
                 rules={{ required: "予定タイトルは必須です", maxLength: { value: 50, message: "最大文字数を超えています" } }}
                 render={({ field: { ref, ...rest } }) => (
                   <Input
@@ -172,6 +173,7 @@ function App() {
                   <Controller
                     name="startDate"
                     control={control}
+                    defaultValue={new Date()}
                     rules={{ required: "開始日時は必須です" }}
                     render={({ field: { ref, ...rest } }) => <DateInput {...rest} id="startDate" hasError={!!errors.startDate?.message} />}
                   />
@@ -195,6 +197,7 @@ function App() {
                   <Controller
                     name="endDate"
                     control={control}
+                    defaultValue={new Date()}
                     rules={{ required: "終了日時は必須です" }}
                     render={({ field: { ref, ...rest } }) => <DateInput {...rest} id="endDate" hasError={!!errors.endDate?.message} />}
                   />
@@ -232,6 +235,7 @@ function App() {
               <Controller
                 name="memo"
                 control={control}
+                defaultValue=""
                 rules={{ maxLength: { value: 2000, message: "最大文字数を超えています" } }}
                 render={({ field: { ref, ...rest } }) => (
                   <TextArea
@@ -254,6 +258,7 @@ function App() {
               <Controller
                 name="location"
                 control={control}
+                defaultValue=""
                 rules={{ maxLength: { value: 100, message: "最大文字数を超えています" } }}
                 render={({ field: { ref, ...rest } }) => (
                   <Input
@@ -276,6 +281,7 @@ function App() {
               <Controller
                 name="url"
                 control={control}
+                defaultValue=""
                 rules={{
                   pattern: { value: /^(https?|ftp)(:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/, message: "URLの形式が正しくありません" },
                   maxLength: { value: 2048, message: "最大文字数を超えています" }
