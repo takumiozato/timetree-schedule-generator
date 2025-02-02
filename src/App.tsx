@@ -139,16 +139,21 @@ function App() {
     const startTime = watch("startTime");
     const endTime = watch("endTime");
 
+    const startDateOnly = getDateOnly(startDate);
+    const endDateOnly = getDateOnly(endDate);
+
+    const errorMessage = "終了日時が開始日時を超えています";
+
     if (allDay) {
-      if (getDateOnly(startDate) > getDateOnly(endDate)) {
-        return "終了日時が開始日時を超えています";
+      if (startDateOnly > endDateOnly) {
+        return errorMessage;
       }
     } else {
       const startHour = parseInt(startTime.split(":")[0], 10);
       const endHour = parseInt(endTime.split(":")[0], 10);
 
-      if (getDateOnly(startDate) > getDateOnly(endDate) || (getDateOnly(startDate) == getDateOnly(endDate) && endHour < startHour)) {
-        return "終了日時が開始日時を超えています";
+      if (startDateOnly > endDateOnly || (startDateOnly == endDateOnly && endHour < startHour)) {
+        return errorMessage;
       }
     }
 
