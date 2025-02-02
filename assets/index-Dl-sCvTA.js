@@ -78,7 +78,7 @@ Error generating stack: `+m.message+`
         background-color: inherit;
         padding: 0;
     }
-`,Y0=({value:t,onChange:i,hasError:e})=>ee.jsx(NC,{hasError:e,children:ee.jsx(eC,{selected:t,onChange:i,dateFormat:"yyyy年MM月dd日 E",locale:z0,customInput:ee.jsx("button",{children:t?Jd(t,"yyyy年MM月dd日 E",{locale:z0}):"日付を選択"})})}),RC=Et.select`
+`,Y0=({value:t,onChange:i,hasError:e})=>ee.jsx(NC,{hasError:e,children:ee.jsx(eC,{selected:t,onChange:i,dateFormat:"yyyy年MM月dd日 E",locale:z0,customInput:ee.jsx("button",{type:"button",children:t?Jd(t,"yyyy年MM月dd日 E",{locale:z0}):"日付を選択"})})}),RC=Et.select`
   padding: 8px 16px;
   border-radius: 4px;
   background-color: #F0F5F6;
