@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import QRCode from 'qrcode';
-import { generateURL } from '../generateURL';
+import { generateURL } from '../helpers/generateURL';
 
 // QRコード生成フック
 export function useQRCode() {

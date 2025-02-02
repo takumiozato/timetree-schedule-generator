@@ -1,4 +1,4 @@
-import { getDateOnly } from '../getDateOnly';
+import { getDateOnly } from './getDateOnly';
 
 export function isValidEndTime(watch: any, allDay: boolean) {
     const startDate = watch("startDate");

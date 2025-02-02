@@ -9,7 +9,6 @@ import { TextArea } from './components/TextArea';
 import { Button } from './components/Button';
 import { useForm, Controller } from 'react-hook-form';
 import { Tooltip } from './components/Tooltip';
-import { getDateOnly } from './getDateOnly';
 import { useQRCode } from './hooks/useQRCode';
 import { isValidEndTime } from './helpers/validation';
 
