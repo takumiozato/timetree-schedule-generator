@@ -12,6 +12,7 @@ import QRCode from 'qrcode';
 import { generateURL } from './generateURL';
 import { useForm, Controller } from 'react-hook-form';
 import { Tooltip } from './components/Tooltip';
+import { getDateOnly } from './getDateOnly';
 
 
 const StyledMainWrapper = styled.div`
@@ -131,6 +132,28 @@ function App() {
   };
 
   const allDay = watch("allDay");
+  // 時間の比較関数
+  const isValidEndTime = () => {
+    const startDate = watch("startDate");
+    const endDate = watch("endDate");
+    const startTime = watch("startTime");
+    const endTime = watch("endTime");
+
+    if (allDay) {
+      if (getDateOnly(startDate) > getDateOnly(endDate)) {
+        return "終了日時が開始日時を超えています";
+      }
+    } else {
+      const startHour = parseInt(startTime.split(":")[0], 10);
+      const endHour = parseInt(endTime.split(":")[0], 10);
+
+      if (getDateOnly(startDate) > getDateOnly(endDate) || (getDateOnly(startDate) == getDateOnly(endDate) && endHour < startHour)) {
+        return "終了日時が開始日時を超えています";
+      }
+    }
+
+    return true;
+  };
 
   const onSubmit = (data: any) => {
     // フォームデータを渡してQRコード生成
@@ -184,6 +207,7 @@ function App() {
                     <Controller
                       name="startTime"
                       control={control}
+                      defaultValue="00:00"
                       render={({ field: { ref, ...rest } }) => (
                         <TimeSelect {...rest} />
                       )}
@@ -198,7 +222,7 @@ function App() {
                     name="endDate"
                     control={control}
                     defaultValue={new Date()}
-                    rules={{ required: "終了日時は必須です" }}
+                    rules={{ required: "終了日時は必須です", validate: isValidEndTime, }}
                     render={({ field: { ref, ...rest } }) => <DateInput {...rest} id="endDate" hasError={!!errors.endDate?.message} />}
                   />
                   {errors.endDate?.message && typeof errors.endDate.message === "string" &&
@@ -208,6 +232,7 @@ function App() {
                     <Controller
                       name="endTime"
                       control={control}
+                      defaultValue="00:00"
                       render={({ field: { ref, ...rest } }) => (
                         <TimeSelect {...rest} />
                       )}
@@ -220,6 +245,7 @@ function App() {
               <Controller
                 name="allDay"
                 control={control}
+                defaultValue={false}
                 render={({ field: { ref, ...rest } }) => (
                   <StyledAllDayCheckboxLabel>
                     <Checkbox {...rest} checked={rest.value} />
