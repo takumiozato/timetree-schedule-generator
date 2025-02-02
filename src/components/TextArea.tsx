@@ -2,6 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 type TextAreaProps = {
+  id?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
@@ -23,6 +24,6 @@ const StyledTextArea = styled.textarea<{ hasError?: boolean }>`
   }
 `;
 
-export const TextArea: FC<TextAreaProps> = ({ value, onChange, placeholder, rows = 4, hasError }) => {
-  return <StyledTextArea {...{ value, onChange, placeholder, rows, hasError }} />;
+export const TextArea: FC<TextAreaProps> = ({ id, value, onChange, placeholder, rows = 4, hasError }) => {
+  return <StyledTextArea {...{ id, value, onChange, placeholder, rows, hasError }} />;
 };

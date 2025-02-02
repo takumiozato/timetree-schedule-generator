@@ -11,6 +11,7 @@ import { Button } from './components/Button';
 import QRCode from 'qrcode';
 import { generateURL } from './generateURL';
 import { useForm, Controller } from 'react-hook-form';
+import { Tooltip } from './components/Tooltip';
 
 
 const StyledMainWrapper = styled.div`
@@ -151,12 +152,16 @@ function App() {
                 render={({ field }) => (
                   <Input
                     {...field}
+                    id="title"
                     type="text"
                     placeholder="TimeTree Day"
                     hasError={!!errors.title?.message}
                   />
                 )}
               />
+              {errors.title?.message && typeof errors.title.message === "string" &&
+                <Tooltip message={errors.title.message || ""} targetElement={document.getElementById("title")} />
+              }
             </InputWrapper>
           </StyledRow>
           <StyledRow>
@@ -168,8 +173,11 @@ function App() {
                     name="startDate"
                     control={control}
                     rules={{ required: "開始日時は必須です" }}
-                    render={({ field }) => <DateInput {...field} hasError={!!errors.startDate?.message} />}
+                    render={({ field }) => <DateInput {...field} id="startDate" hasError={!!errors.startDate?.message} />}
                   />
+                  {errors.startDate?.message && typeof errors.startDate.message === "string" &&
+                    <Tooltip message={errors.startDate.message || ""} targetElement={document.getElementById("startDate")} />
+                  }
                   {!allDay && (
                     <Controller
                       name="startTime"
@@ -188,8 +196,11 @@ function App() {
                     name="endDate"
                     control={control}
                     rules={{ required: "終了日時は必須です" }}
-                    render={({ field }) => <DateInput {...field} hasError={!!errors.endDate?.message} />}
+                    render={({ field }) => <DateInput {...field} id="endDate" hasError={!!errors.endDate?.message} />}
                   />
+                  {errors.endDate?.message && typeof errors.endDate.message === "string" &&
+                    <Tooltip message={errors.endDate.message || ""} targetElement={document.getElementById("endDate")} />
+                  }
                   {!allDay && (
                     <Controller
                       name="endTime"
@@ -225,12 +236,16 @@ function App() {
                 render={({ field }) => (
                   <TextArea
                     {...field}
+                    id="memo"
                     placeholder="メモ内容"
                     rows={4}
                     hasError={!!errors.memo?.message}
                   />
                 )}
               />
+              {errors.memo?.message && typeof errors.memo.message === "string" &&
+                <Tooltip message={errors.memo.message || ""} targetElement={document.getElementById("memo")} />
+              }
             </InputWrapper>
           </StyledRow>
           <StyledRow>
@@ -243,12 +258,16 @@ function App() {
                 render={({ field }) => (
                   <Input
                     {...field}
+                    id="location"
                     type="text"
                     placeholder="東京都新宿区西新宿6-6-3 新宿国際ビルディング新館503"
                     hasError={!!errors.location?.message}
                   />
                 )}
               />
+              {errors.location?.message && typeof errors.location.message === "string" &&
+                <Tooltip message={errors.location.message || ""} targetElement={document.getElementById("location")} />
+              }
             </InputWrapper>
           </StyledRow>
           <StyledRow>
@@ -262,9 +281,12 @@ function App() {
                   maxLength: { value: 2048, message: "最大文字数を超えています" }
                 }}
                 render={({ field }) => (
-                  <Input {...field} type="url" placeholder="https://example.com" hasError={!!errors.url?.message} />
+                  <Input {...field} id="url" type="url" placeholder="https://example.com" hasError={!!errors.url?.message} />
                 )}
               />
+              {errors.url?.message && typeof errors.url.message === "string" &&
+                <Tooltip message={errors.url.message || ""} targetElement={document.getElementById("url")} />
+              }
             </InputWrapper>
           </StyledRow>
           <StyledButtonWrapper>

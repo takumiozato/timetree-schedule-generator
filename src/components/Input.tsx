@@ -2,6 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 type InputProps = {
+  id?: string;
   type: "text" | "url";
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -22,6 +23,6 @@ const StyledInput = styled.input<{ hasError?: boolean }>`
   }
 `;
 
-export const Input: FC<InputProps> = ({ type, value, onChange, placeholder, hasError }) => {
-  return <StyledInput {...{ type, value, onChange, placeholder, hasError }} />;
+export const Input: FC<InputProps> = ({ id, type, value, onChange, placeholder, hasError }) => {
+  return <StyledInput {...{ id, type, value, onChange, placeholder, hasError }} />;
 };

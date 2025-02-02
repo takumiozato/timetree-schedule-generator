@@ -22,14 +22,15 @@ const StyledDateInput = styled.div<{ hasError?: boolean }>`
 `;
 
 type DateInputProps = {
+    id?: string;
     value: Date | null;
     onChange: (date: Date | null) => void;
     hasError?: boolean;
 };
 
-export const DateInput: FC<DateInputProps> = ({ value, onChange, hasError }) => {
+export const DateInput: FC<DateInputProps> = ({ id, value, onChange, hasError }) => {
     return (
-        <StyledDateInput {... { hasError }}>
+        <StyledDateInput {... { id, hasError }}>
             <DatePicker
                 selected={value}
                 onChange={onChange}
