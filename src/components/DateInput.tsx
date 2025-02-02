@@ -36,7 +36,7 @@ export const DateInput: FC<DateInputProps> = ({ value, onChange, hasError }) => 
                 dateFormat="yyyy年MM月dd日 E"
                 locale={ja}
                 customInput={
-                    <button>
+                    <button type="button">
                         {value ? format(value, "yyyy年MM月dd日 E", { locale: ja }) : "日付を選択"}
                     </button>
                 }
