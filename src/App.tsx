@@ -10,6 +10,8 @@ import { useState } from 'react';
 import { Button } from './components/Button';
 import QRCode from 'qrcode';
 import { generateURL } from './generateURL';
+import { useForm, Controller } from 'react-hook-form';
+
 
 const StyledMainWrapper = styled.div`
   background-color: #2ecc87;
@@ -97,33 +99,24 @@ const StyledGeneratedArea = styled.div`
 `;
 
 function App() {
-  // 予定タイトル
-  const [title, setTitle] = useState('');
-
-  // 開始日時
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const [startTime, setStartTime] = useState('');
-  // 終了日時
-  const [endDate, setEndDate] = useState<Date | null>(new Date());
-  const [endTime, setEndTime] = useState('');
-  // 終日チェックボックス
-  const [allDay, setAllDay] = useState(false);
-
-  // メモ
-  const [memo, setMemo] = useState('');
-
-  // 場所
-  const [location, setLocation] = useState('');
-
-  // 添付URL
-  const [url, setUrl] = useState('');
+  const { control, handleSubmit, formState: { errors }, watch } = useForm();
 
   // QRコードURL
   const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
 
   // QRコード生成処理
-  const onClickGenerateQRCode = async () => {
-    const timetrUrl = generateURL(startDate, startTime, endDate, endTime, title, memo, allDay, location, url);
+  const onClickGenerateQRCode = (data: any) => {
+    const timetrUrl = generateURL(
+      data.startDate,
+      data.startTime,
+      data.endDate,
+      data.endTime,
+      data.title,
+      data.memo,
+      data.allDay,
+      data.location,
+      data.url
+    );
 
     // QRコード生成
     QRCode.toDataURL(timetrUrl, (err, url) => {
@@ -136,70 +129,150 @@ function App() {
     });
   };
 
+  const allDay = watch("allDay");
+
+  const onSubmit = (data: any) => {
+    // フォームデータを渡してQRコード生成
+    onClickGenerateQRCode(data);
+  };
+
   return (
     <StyledMainWrapper>
-      <StyledMainContent>
-        <h1>予定作成QRコードの生成</h1>
-        <StyledRow>
-          <InputWrapper>
-            <Label required>予定タイトル</Label>
-            <Input type='text' value={title} onChange={(e) => setTitle(e.target.value)} placeholder="TimeTree Day" />
-          </InputWrapper>
-        </StyledRow>
-        <StyledRow>
-          <StyledDateTimeRow>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <StyledMainContent>
+          <h1>予定作成QRコードの生成</h1>
+          <StyledRow>
             <InputWrapper>
-              <Label required>開始日時</Label>
-              <StyledDateTimeWrapper>
-                <DateInput value={startDate} onChange={(date) => setStartDate(date)} />
-                {!allDay && (
-                  <TimeSelect value={startTime} onChange={(value) => setStartTime(value)} />
+              <Label required>予定タイトル</Label>
+              <Controller
+                name="title"
+                control={control}
+                rules={{ required: "予定タイトルは必須です", maxLength: { value: 50, message: "最大文字数を超えています" } }}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    placeholder="TimeTree Day"
+                    hasError={!!errors.title?.message}
+                  />
                 )}
-              </StyledDateTimeWrapper>
+              />
             </InputWrapper>
+          </StyledRow>
+          <StyledRow>
+            <StyledDateTimeRow>
+              <InputWrapper>
+                <Label required>開始日時</Label>
+                <StyledDateTimeWrapper>
+                  <Controller
+                    name="startDate"
+                    control={control}
+                    rules={{ required: "開始日時は必須です" }}
+                    render={({ field }) => <DateInput {...field} hasError={!!errors.startDate?.message} />}
+                  />
+                  {!allDay && (
+                    <Controller
+                      name="startTime"
+                      control={control}
+                      render={({ field }) => (
+                        <TimeSelect {...field} />
+                      )}
+                    />
+                  )}
+                </StyledDateTimeWrapper>
+              </InputWrapper>
+              <InputWrapper>
+                <Label required>終了日時</Label>
+                <StyledDateTimeWrapper>
+                  <Controller
+                    name="endDate"
+                    control={control}
+                    rules={{ required: "終了日時は必須です" }}
+                    render={({ field }) => <DateInput {...field} hasError={!!errors.endDate?.message} />}
+                  />
+                  {!allDay && (
+                    <Controller
+                      name="endTime"
+                      control={control}
+                      render={({ field }) => (
+                        <TimeSelect {...field} />
+                      )}
+                    />
+                  )}
+                </StyledDateTimeWrapper>
+              </InputWrapper>
+            </StyledDateTimeRow>
+            <StyledAllDayCheckboxLabel>
+              <Controller
+                name="allDay"
+                control={control}
+                render={({ field }) => (
+                  <StyledAllDayCheckboxLabel>
+                    <Checkbox {...field} checked={field.value} />
+                    終日
+                  </StyledAllDayCheckboxLabel>
+                )}
+              />
+            </StyledAllDayCheckboxLabel>
+          </StyledRow>
+          <StyledRow>
             <InputWrapper>
-              <Label required>終了日時</Label>
-              <StyledDateTimeWrapper>
-                <DateInput value={endDate} onChange={(date) => setEndDate(date)} />
-                {!allDay && (
-                  <TimeSelect value={endTime} onChange={(value) => setEndTime(value)} />
+              <Label>メモ</Label>
+              <Controller
+                name="memo"
+                control={control}
+                rules={{ maxLength: { value: 2000, message: "最大文字数を超えています" } }}
+                render={({ field }) => (
+                  <TextArea
+                    {...field}
+                    placeholder="メモ内容"
+                    rows={4}
+                    hasError={!!errors.memo?.message}
+                  />
                 )}
-              </StyledDateTimeWrapper>
+              />
             </InputWrapper>
-          </StyledDateTimeRow>
-          <StyledAllDayCheckboxLabel>
-            <Checkbox checked={allDay} onChange={() => setAllDay(!allDay)} />
-            終日
-          </StyledAllDayCheckboxLabel>
-        </StyledRow>
-        <StyledRow>
-          <InputWrapper>
-            <Label>メモ</Label>
-            <TextArea
-              value={memo}
-              onChange={(e) => setMemo(e.target.value)}
-              placeholder="本イベントは「普段からTimeTreeを愛用くださっているみなさまに、サービスやわたしたちのことをいろいろ知っていただき、TimeTreeをもっと好きになってもらいたい！」という思いで企画しています。"
-              rows={4}
-            />
-          </InputWrapper>
-        </StyledRow>
-        <StyledRow>
-          <InputWrapper>
-            <Label>場所</Label>
-            <Input type="text" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="東京都新宿区西新宿6-6-3 新宿国際ビルディング新館503" />
-          </InputWrapper>
-        </StyledRow>
-        <StyledRow>
-          <InputWrapper>
-            <Label>添付URL</Label>
-            <Input type="url" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://timetreeapp.com/" />
-          </InputWrapper>
-        </StyledRow>
-        <StyledButtonWrapper>
-          <Button onClick={onClickGenerateQRCode}>QRコード生成</Button>
-        </StyledButtonWrapper>
-        {/* QRコードが生成された場合に表示 */}
-      </StyledMainContent>
+          </StyledRow>
+          <StyledRow>
+            <InputWrapper>
+              <Label>場所</Label>
+              <Controller
+                name="location"
+                control={control}
+                rules={{ maxLength: { value: 100, message: "最大文字数を超えています" } }}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    placeholder="東京都新宿区西新宿6-6-3 新宿国際ビルディング新館503"
+                    hasError={!!errors.location?.message}
+                  />
+                )}
+              />
+            </InputWrapper>
+          </StyledRow>
+          <StyledRow>
+            <InputWrapper>
+              <Label>添付URL</Label>
+              <Controller
+                name="url"
+                control={control}
+                rules={{
+                  pattern: { value: /^(https?|ftp)(:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/, message: "URLの形式が正しくありません" },
+                  maxLength: { value: 2048, message: "最大文字数を超えています" }
+                }}
+                render={({ field }) => (
+                  <Input {...field} type="url" placeholder="https://example.com" hasError={!!errors.url?.message} />
+                )}
+              />
+            </InputWrapper>
+          </StyledRow>
+          <StyledButtonWrapper>
+            <Button type="submit">QRコード生成</Button>
+          </StyledButtonWrapper>
+          {/* QRコードが生成された場合に表示 */}
+        </StyledMainContent>
+      </form>
       {qrCodeUrl && (
         <StyledMainContent>
           <StyledRow>

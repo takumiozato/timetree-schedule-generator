@@ -6,12 +6,13 @@ import { ja } from "date-fns/locale";
 import styled from 'styled-components';
 
 
-const StyledDateInput = styled.div`
+const StyledDateInput = styled.div<{ hasError?: boolean }>`
     padding: 8px 16px;
     border-radius: 4px;
     background-color: #F0F5F6;
     font-size: 16px;
     font-weight: 500;
+    border: ${({ hasError }) => (hasError && '1px solid #f44336')};
   
     button {
         border: none;
@@ -23,11 +24,12 @@ const StyledDateInput = styled.div`
 type DateInputProps = {
     value: Date | null;
     onChange: (date: Date | null) => void;
+    hasError?: boolean;
 };
 
-export const DateInput: FC<DateInputProps> = ({ value, onChange }) => {
+export const DateInput: FC<DateInputProps> = ({ value, onChange, hasError }) => {
     return (
-        <StyledDateInput>
+        <StyledDateInput {... { hasError }}>
             <DatePicker
                 selected={value}
                 onChange={onChange}

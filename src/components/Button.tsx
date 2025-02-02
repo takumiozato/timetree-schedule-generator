@@ -2,6 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 type ButtonProps = {
+    type?: 'button' | 'submit' | 'reset';
     children: string;
     onClick?: () => void;
     disabled?: boolean;
@@ -27,6 +28,6 @@ const StyledButton = styled.button`
     }
 `;
 
-export const Button: FC<ButtonProps> = ({ children, onClick, disabled }) => (
-    <StyledButton onClick={onClick} disabled={disabled}>{children}</StyledButton>
+export const Button: FC<ButtonProps> = ({ type, children, onClick, disabled }) => (
+    <StyledButton {...{ type, onClick, disabled }}>{children}</StyledButton>
 );
