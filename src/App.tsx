@@ -17,6 +17,11 @@ const StyledMainWrapper = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 40px;
+
+  @media (max-width: 767px) {
+    padding: 8px;
+    row-gap: 8px;
+  }
 `;
 
 const StyledMainContent = styled.div`
@@ -37,6 +42,10 @@ const StyledMainContent = styled.div`
     font-weight: 700;
     line-height: 1.3;
   }
+
+  @media (max-width: 767px) {
+    padding: 16px; 
+  }
 `;
 
 const StyledRow = styled.div`
@@ -47,6 +56,13 @@ const StyledDateTimeRow = styled.div`
   display: flex;
   column-gap: 16px;
   margin-bottom: 12px;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    column-gap: 0;
+    row-gap: 24px;
+    margin-bottom: 16px; 
+  }
 `;
 
 const StyledDateTimeWrapper = styled.div`
