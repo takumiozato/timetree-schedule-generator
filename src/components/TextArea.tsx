@@ -10,20 +10,20 @@ type TextAreaProps = {
   hasError?: boolean;
 };
 
-const StyledTextArea = styled.textarea<{ hasError?: boolean }>`
+const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
   padding: 12px 16px;
   border-radius: 4px;
-  border: 1px solid ${({ hasError }) => (hasError ? '#f44336' : '#adbbc4')};
+  border: 1px solid ${({ $hasError }) => ($hasError ? '#f44336' : '#adbbc4')};
   font-size: 16px;
   font-weight: 500;
   line-height: 1.4;
   outline: none;
 
   &:focus {
-    border-color: ${({ hasError }) => (hasError ? '#f44336' : '#2495E7')};
+    border-color: ${({ $hasError }) => ($hasError ? '#f44336' : '#2495E7')};
   }
 `;
 
 export const TextArea: FC<TextAreaProps> = ({ id, value, onChange, placeholder, rows = 4, hasError }) => {
-  return <StyledTextArea {...{ id, value, onChange, placeholder, rows, hasError }} />;
+  return <StyledTextArea {...{ id, value, onChange, placeholder, rows }} $hasError={hasError} />;
 };

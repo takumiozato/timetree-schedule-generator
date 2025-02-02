@@ -6,13 +6,13 @@ import { ja } from "date-fns/locale";
 import styled from 'styled-components';
 
 
-const StyledDateInput = styled.div<{ hasError?: boolean }>`
+const StyledDateInput = styled.div<{ $hasError?: boolean }>`
     padding: 8px 16px;
     border-radius: 4px;
     background-color: #F0F5F6;
     font-size: 16px;
     font-weight: 500;
-    border: ${({ hasError }) => (hasError && '1px solid #f44336')};
+    border: ${({ $hasError }) => ($hasError && '1px solid #f44336')};
   
     button {
         border: none;
@@ -30,7 +30,7 @@ type DateInputProps = {
 
 export const DateInput: FC<DateInputProps> = ({ id, value, onChange, hasError }) => {
     return (
-        <StyledDateInput {... { id, hasError }}>
+        <StyledDateInput {... { id }} $hasError={hasError}>
             <DatePicker
                 selected={value}
                 onChange={onChange}

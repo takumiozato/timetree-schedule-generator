@@ -10,19 +10,21 @@ type InputProps = {
   hasError?: boolean;
 };
 
-const StyledInput = styled.input<{ hasError?: boolean }>`
+const StyledInput = styled.input<{ $hasError?: boolean }>`
   padding: 8px 16px;
   border-radius: 4px;
-  border: 1px solid ${({ hasError }) => (hasError ? '#f44336' : '#adbbc4')};
+  border: 1px solid ${({ $hasError }) => ($hasError ? '#f44336' : '#adbbc4')};
   font-size: 16px;
   font-weight: 500;
   outline: none;
 
   &:focus {
-    border-color: ${({ hasError }) => (hasError ? '#f44336' : '#2495E7')};
+    border-color: ${({ $hasError }) => ($hasError ? '#f44336' : '#2495E7')};
   }
 `;
 
 export const Input: FC<InputProps> = ({ id, type, value, onChange, placeholder, hasError }) => {
-  return <StyledInput {...{ id, type, value, onChange, placeholder, hasError }} />;
+  const inputProps = { id, type, value, onChange, placeholder };
+
+  return <StyledInput {...inputProps} $hasError={hasError} />;
 };
