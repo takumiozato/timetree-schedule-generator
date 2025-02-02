@@ -149,9 +149,9 @@ function App() {
                 name="title"
                 control={control}
                 rules={{ required: "予定タイトルは必須です", maxLength: { value: 50, message: "最大文字数を超えています" } }}
-                render={({ field }) => (
+                render={({ field: { ref, ...rest } }) => (
                   <Input
-                    {...field}
+                    {...rest}
                     id="title"
                     type="text"
                     placeholder="TimeTree Day"
@@ -173,7 +173,7 @@ function App() {
                     name="startDate"
                     control={control}
                     rules={{ required: "開始日時は必須です" }}
-                    render={({ field }) => <DateInput {...field} id="startDate" hasError={!!errors.startDate?.message} />}
+                    render={({ field: { ref, ...rest } }) => <DateInput {...rest} id="startDate" hasError={!!errors.startDate?.message} />}
                   />
                   {errors.startDate?.message && typeof errors.startDate.message === "string" &&
                     <Tooltip message={errors.startDate.message || ""} targetElement={document.getElementById("startDate")} />
@@ -182,8 +182,8 @@ function App() {
                     <Controller
                       name="startTime"
                       control={control}
-                      render={({ field }) => (
-                        <TimeSelect {...field} />
+                      render={({ field: { ref, ...rest } }) => (
+                        <TimeSelect {...rest} />
                       )}
                     />
                   )}
@@ -196,7 +196,7 @@ function App() {
                     name="endDate"
                     control={control}
                     rules={{ required: "終了日時は必須です" }}
-                    render={({ field }) => <DateInput {...field} id="endDate" hasError={!!errors.endDate?.message} />}
+                    render={({ field: { ref, ...rest } }) => <DateInput {...rest} id="endDate" hasError={!!errors.endDate?.message} />}
                   />
                   {errors.endDate?.message && typeof errors.endDate.message === "string" &&
                     <Tooltip message={errors.endDate.message || ""} targetElement={document.getElementById("endDate")} />
@@ -205,8 +205,8 @@ function App() {
                     <Controller
                       name="endTime"
                       control={control}
-                      render={({ field }) => (
-                        <TimeSelect {...field} />
+                      render={({ field: { ref, ...rest } }) => (
+                        <TimeSelect {...rest} />
                       )}
                     />
                   )}
@@ -217,9 +217,9 @@ function App() {
               <Controller
                 name="allDay"
                 control={control}
-                render={({ field }) => (
+                render={({ field: { ref, ...rest } }) => (
                   <StyledAllDayCheckboxLabel>
-                    <Checkbox {...field} checked={field.value} />
+                    <Checkbox {...rest} checked={rest.value} />
                     終日
                   </StyledAllDayCheckboxLabel>
                 )}
@@ -233,9 +233,9 @@ function App() {
                 name="memo"
                 control={control}
                 rules={{ maxLength: { value: 2000, message: "最大文字数を超えています" } }}
-                render={({ field }) => (
+                render={({ field: { ref, ...rest } }) => (
                   <TextArea
-                    {...field}
+                    {...rest}
                     id="memo"
                     placeholder="メモ内容"
                     rows={4}
@@ -255,9 +255,9 @@ function App() {
                 name="location"
                 control={control}
                 rules={{ maxLength: { value: 100, message: "最大文字数を超えています" } }}
-                render={({ field }) => (
+                render={({ field: { ref, ...rest } }) => (
                   <Input
-                    {...field}
+                    {...rest}
                     id="location"
                     type="text"
                     placeholder="東京都新宿区西新宿6-6-3 新宿国際ビルディング新館503"
@@ -280,8 +280,8 @@ function App() {
                   pattern: { value: /^(https?|ftp)(:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/, message: "URLの形式が正しくありません" },
                   maxLength: { value: 2048, message: "最大文字数を超えています" }
                 }}
-                render={({ field }) => (
-                  <Input {...field} id="url" type="url" placeholder="https://example.com" hasError={!!errors.url?.message} />
+                render={({ field: { ref, ...rest } }) => (
+                  <Input {...rest} id="url" type="url" placeholder="https://example.com" hasError={!!errors.url?.message} />
                 )}
               />
               {errors.url?.message && typeof errors.url.message === "string" &&
