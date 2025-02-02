@@ -6,13 +6,11 @@ import { DateInput } from './components/DateInput';
 import { TimeSelect } from './components/TimeSelect';
 import { Checkbox } from './components/Checkbox';
 import { TextArea } from './components/TextArea';
-import { useState } from 'react';
 import { Button } from './components/Button';
-import QRCode from 'qrcode';
-import { generateURL } from './generateURL';
 import { useForm, Controller } from 'react-hook-form';
 import { Tooltip } from './components/Tooltip';
 import { getDateOnly } from './getDateOnly';
+import { useQRCode } from './hooks/useQRCode';
 
 
 const StyledMainWrapper = styled.div`
@@ -102,37 +100,11 @@ const StyledGeneratedArea = styled.div`
 
 function App() {
   const { control, handleSubmit, formState: { errors }, watch } = useForm();
-
-  // QRコードURL
-  const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
-
-  // QRコード生成処理
-  const onClickGenerateQRCode = (data: any) => {
-    const timetrUrl = generateURL(
-      data.startDate,
-      data.startTime,
-      data.endDate,
-      data.endTime,
-      data.title,
-      data.memo,
-      data.allDay,
-      data.location,
-      data.url
-    );
-
-    // QRコード生成
-    QRCode.toDataURL(timetrUrl, (err, url) => {
-      if (err) {
-        console.error('QRコード生成エラー:', err);
-      } else {
-        // QRコードのURLをステートにセット
-        setQrCodeUrl(url);
-      }
-    });
-  };
+  const { qrCodeUrl, generateQRCode } = useQRCode();
 
   const allDay = watch("allDay");
-  // 時間の比較関数
+
+  // 終了日時が開始日時を超えていないかチェック
   const isValidEndTime = () => {
     const startDate = watch("startDate");
     const endDate = watch("endDate");
@@ -162,7 +134,7 @@ function App() {
 
   const onSubmit = (data: any) => {
     // フォームデータを渡してQRコード生成
-    onClickGenerateQRCode(data);
+    generateQRCode(data);
   };
 
   return (
