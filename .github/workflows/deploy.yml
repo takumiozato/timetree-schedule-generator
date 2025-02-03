@@ -9,7 +9,27 @@ permissions:
   contents: write
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Node.js をセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: 依存関係をインストール
+        run: npm ci
+
+      - name: ESLint を実行
+        run: npm run lint
+
   deploy:
+    needs: lint
     if: github.ref != 'refs/heads/gh-pages'
     runs-on: ubuntu-latest
 
