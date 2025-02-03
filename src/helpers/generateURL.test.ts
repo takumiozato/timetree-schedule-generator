@@ -48,7 +48,7 @@ describe('generateURL', () => {
       new Date('2024-02-02'),
       '00:00',
       new Date('2024-02-02'),
-      '23:59',
+      '23:00',
       'Holiday',
       'Company holiday',
       true,
@@ -58,8 +58,8 @@ describe('generateURL', () => {
 
     const decoded = decodeTimeTreeURL(url)
     expect(decoded.a).toBe(true)
-    expect(decoded.s).toBe('20240202T000000+0900')
-    expect(decoded.e).toBe('20240202T235900+0900')
+    expect(decoded.s).toBe('20240202T000000+0000')
+    expect(decoded.e).toBe('20240202T000000+0000')
   })
 
   it('任意入力のフィールドが正しく処理される', () => {
