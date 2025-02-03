@@ -17,7 +17,7 @@ const StyledCheckbox = styled.input`
 
   &:checked::before {
     content: '';
-    background-image: url('${checkIcon}');
+    background-image: url(\"${checkIcon}\");
     background-position: center;
     background-repeat: no-repeat;
     display: block;
