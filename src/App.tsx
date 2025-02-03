@@ -1,17 +1,16 @@
-import styled from 'styled-components';
-import { Label } from './components/Label';
-import { InputWrapper } from './components/InputWrapper';
-import { Input } from './components/Input';
-import { DateInput } from './components/DateInput';
-import { TimeSelect } from './components/TimeSelect';
-import { Checkbox } from './components/Checkbox';
-import { TextArea } from './components/TextArea';
-import { Button } from './components/Button';
-import { useForm, Controller } from 'react-hook-form';
-import { Tooltip } from './components/Tooltip';
-import { useQRCode } from './hooks/useQRCode';
-import { isValidEndTime } from './helpers/validation';
-
+import styled from 'styled-components'
+import { Label } from './components/Label'
+import { InputWrapper } from './components/InputWrapper'
+import { Input } from './components/Input'
+import { DateInput } from './components/DateInput'
+import { TimeSelect } from './components/TimeSelect'
+import { Checkbox } from './components/Checkbox'
+import { TextArea } from './components/TextArea'
+import { Button } from './components/Button'
+import { useForm, Controller } from 'react-hook-form'
+import { Tooltip } from './components/Tooltip'
+import { useQRCode } from './hooks/useQRCode'
+import { isValidEndTime } from './helpers/validation'
 
 const StyledMainWrapper = styled.div`
   background-color: #2ecc87;
@@ -24,7 +23,7 @@ const StyledMainWrapper = styled.div`
     padding: 8px;
     row-gap: 8px;
   }
-`;
+`
 
 const StyledMainContent = styled.div`
   width: 100%;
@@ -46,13 +45,13 @@ const StyledMainContent = styled.div`
   }
 
   @media (max-width: 767px) {
-    padding: 16px; 
+    padding: 16px;
   }
-`;
+`
 
 const StyledRow = styled.div`
   width: 100%;
-`;
+`
 
 const StyledDateTimeRow = styled.div`
   display: flex;
@@ -63,27 +62,27 @@ const StyledDateTimeRow = styled.div`
     flex-direction: column;
     column-gap: 0;
     row-gap: 24px;
-    margin-bottom: 16px; 
+    margin-bottom: 16px;
   }
-`;
+`
 
 const StyledDateTimeWrapper = styled.div`
   display: flex;
   column-gap: 8px;
-`;
+`
 
 const StyledAllDayCheckboxLabel = styled.label`
   display: inline-flex;
   align-items: center;
   column-gap: 8px;
   cursor: pointer;
-`;
+`
 
 const StyledButtonWrapper = styled.div`
   display: flex;
   justify-content: right;
   width: 100%;
-`;
+`
 
 const StyledGeneratedArea = styled.div`
   > p {
@@ -96,18 +95,35 @@ const StyledGeneratedArea = styled.div`
     display: block;
     margin: 0 auto;
   }
-`;
+`
+
+export type FormData = {
+  title: string
+  startDate: Date
+  startTime: string
+  endDate: Date
+  endTime: string
+  allDay: boolean
+  memo: string
+  location: string
+  url: string
+}
 
 function App() {
-  const { control, handleSubmit, formState: { errors }, watch } = useForm();
-  const { qrCodeUrl, generateQRCode } = useQRCode();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<FormData>()
+  const { qrCodeUrl, generateQRCode } = useQRCode()
 
-  const allDay = watch("allDay");
+  const allDay = watch('allDay')
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FormData) => {
     // フォームデータを渡してQRコード生成
-    generateQRCode(data);
-  };
+    generateQRCode(data)
+  }
 
   return (
     <StyledMainWrapper>
@@ -121,8 +137,11 @@ function App() {
                 name="title"
                 control={control}
                 defaultValue=""
-                rules={{ required: "予定タイトルは必須です", maxLength: { value: 50, message: "最大文字数を超えています" } }}
-                render={({ field: { ref, ...rest } }) => (
+                rules={{
+                  required: '予定タイトルは必須です',
+                  maxLength: { value: 50, message: '最大文字数を超えています' },
+                }}
+                render={({ field: { ...rest } }) => (
                   <Input
                     {...rest}
                     id="title"
@@ -132,9 +151,13 @@ function App() {
                   />
                 )}
               />
-              {errors.title?.message && typeof errors.title.message === "string" &&
-                <Tooltip message={errors.title.message || ""} targetElement={document.getElementById("title")} />
-              }
+              {errors.title?.message &&
+                typeof errors.title.message === 'string' && (
+                  <Tooltip
+                    message={errors.title.message || ''}
+                    targetElement={document.getElementById('title')}
+                  />
+                )}
             </InputWrapper>
           </StyledRow>
           <StyledRow>
@@ -146,18 +169,28 @@ function App() {
                     name="startDate"
                     control={control}
                     defaultValue={new Date()}
-                    rules={{ required: "開始日時は必須です" }}
-                    render={({ field: { ref, ...rest } }) => <DateInput {...rest} id="startDate" hasError={!!errors.startDate?.message} />}
+                    rules={{ required: '開始日時は必須です' }}
+                    render={({ field: { ...rest } }) => (
+                      <DateInput
+                        {...rest}
+                        id="startDate"
+                        hasError={!!errors.startDate?.message}
+                      />
+                    )}
                   />
-                  {errors.startDate?.message && typeof errors.startDate.message === "string" &&
-                    <Tooltip message={errors.startDate.message || ""} targetElement={document.getElementById("startDate")} />
-                  }
+                  {errors.startDate?.message &&
+                    typeof errors.startDate.message === 'string' && (
+                      <Tooltip
+                        message={errors.startDate.message || ''}
+                        targetElement={document.getElementById('startDate')}
+                      />
+                    )}
                   {!allDay && (
                     <Controller
                       name="startTime"
                       control={control}
                       defaultValue="00:00"
-                      render={({ field: { ref, ...rest } }) => (
+                      render={({ field: { ...rest } }) => (
                         <TimeSelect {...rest} />
                       )}
                     />
@@ -171,18 +204,31 @@ function App() {
                     name="endDate"
                     control={control}
                     defaultValue={new Date()}
-                    rules={{ required: "終了日時は必須です", validate: () => isValidEndTime(watch, allDay), }}
-                    render={({ field: { ref, ...rest } }) => <DateInput {...rest} id="endDate" hasError={!!errors.endDate?.message} />}
+                    rules={{
+                      required: '終了日時は必須です',
+                      validate: () => isValidEndTime(watch, allDay),
+                    }}
+                    render={({ field: { ...rest } }) => (
+                      <DateInput
+                        {...rest}
+                        id="endDate"
+                        hasError={!!errors.endDate?.message}
+                      />
+                    )}
                   />
-                  {errors.endDate?.message && typeof errors.endDate.message === "string" &&
-                    <Tooltip message={errors.endDate.message || ""} targetElement={document.getElementById("endDate")} />
-                  }
+                  {errors.endDate?.message &&
+                    typeof errors.endDate.message === 'string' && (
+                      <Tooltip
+                        message={errors.endDate.message || ''}
+                        targetElement={document.getElementById('endDate')}
+                      />
+                    )}
                   {!allDay && (
                     <Controller
                       name="endTime"
                       control={control}
                       defaultValue="00:00"
-                      render={({ field: { ref, ...rest } }) => (
+                      render={({ field: { ...rest } }) => (
                         <TimeSelect {...rest} />
                       )}
                     />
@@ -195,7 +241,7 @@ function App() {
                 name="allDay"
                 control={control}
                 defaultValue={false}
-                render={({ field: { ref, ...rest } }) => (
+                render={({ field: { ...rest } }) => (
                   <StyledAllDayCheckboxLabel>
                     <Checkbox {...rest} checked={rest.value} />
                     終日
@@ -211,8 +257,13 @@ function App() {
                 name="memo"
                 control={control}
                 defaultValue=""
-                rules={{ maxLength: { value: 2000, message: "最大文字数を超えています" } }}
-                render={({ field: { ref, ...rest } }) => (
+                rules={{
+                  maxLength: {
+                    value: 2000,
+                    message: '最大文字数を超えています',
+                  },
+                }}
+                render={({ field: { ...rest } }) => (
                   <TextArea
                     {...rest}
                     id="memo"
@@ -222,9 +273,13 @@ function App() {
                   />
                 )}
               />
-              {errors.memo?.message && typeof errors.memo.message === "string" &&
-                <Tooltip message={errors.memo.message || ""} targetElement={document.getElementById("memo")} />
-              }
+              {errors.memo?.message &&
+                typeof errors.memo.message === 'string' && (
+                  <Tooltip
+                    message={errors.memo.message || ''}
+                    targetElement={document.getElementById('memo')}
+                  />
+                )}
             </InputWrapper>
           </StyledRow>
           <StyledRow>
@@ -234,8 +289,13 @@ function App() {
                 name="location"
                 control={control}
                 defaultValue=""
-                rules={{ maxLength: { value: 100, message: "最大文字数を超えています" } }}
-                render={({ field: { ref, ...rest } }) => (
+                rules={{
+                  maxLength: {
+                    value: 100,
+                    message: '最大文字数を超えています',
+                  },
+                }}
+                render={({ field: { ...rest } }) => (
                   <Input
                     {...rest}
                     id="location"
@@ -245,9 +305,13 @@ function App() {
                   />
                 )}
               />
-              {errors.location?.message && typeof errors.location.message === "string" &&
-                <Tooltip message={errors.location.message || ""} targetElement={document.getElementById("location")} />
-              }
+              {errors.location?.message &&
+                typeof errors.location.message === 'string' && (
+                  <Tooltip
+                    message={errors.location.message || ''}
+                    targetElement={document.getElementById('location')}
+                  />
+                )}
             </InputWrapper>
           </StyledRow>
           <StyledRow>
@@ -258,16 +322,33 @@ function App() {
                 control={control}
                 defaultValue=""
                 rules={{
-                  pattern: { value: /^(https?|ftp)(:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/, message: "URLの形式が正しくありません" },
-                  maxLength: { value: 2048, message: "最大文字数を超えています" }
+                  pattern: {
+                    value:
+                      /^(https?|ftp):\/\/(?:[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+)(?::\d{1,5})?(?:\/[^\s]*)?$/,
+                    message: 'URLの形式が正しくありません',
+                  },
+                  maxLength: {
+                    value: 2048,
+                    message: '最大文字数を超えています',
+                  },
                 }}
-                render={({ field: { ref, ...rest } }) => (
-                  <Input {...rest} id="url" type="url" placeholder="https://example.com" hasError={!!errors.url?.message} />
+                render={({ field: { ...rest } }) => (
+                  <Input
+                    {...rest}
+                    id="url"
+                    type="url"
+                    placeholder="https://example.com"
+                    hasError={!!errors.url?.message}
+                  />
                 )}
               />
-              {errors.url?.message && typeof errors.url.message === "string" &&
-                <Tooltip message={errors.url.message || ""} targetElement={document.getElementById("url")} />
-              }
+              {errors.url?.message &&
+                typeof errors.url.message === 'string' && (
+                  <Tooltip
+                    message={errors.url.message || ''}
+                    targetElement={document.getElementById('url')}
+                  />
+                )}
             </InputWrapper>
           </StyledRow>
           <StyledButtonWrapper>
@@ -287,7 +368,7 @@ function App() {
         </StyledMainContent>
       )}
     </StyledMainWrapper>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,14 +1,14 @@
-import { FC } from 'react';
-import styled from 'styled-components';
+import { FC } from 'react'
+import styled from 'styled-components'
 
 type TextAreaProps = {
-  id?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  placeholder?: string;
-  rows?: number;
-  hasError?: boolean;
-};
+  id?: string
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  placeholder?: string
+  rows?: number
+  hasError?: boolean
+}
 
 const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
   padding: 12px 16px;
@@ -23,8 +23,20 @@ const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
   &:focus {
     border-color: ${({ $hasError }) => ($hasError ? '#f44336' : '#2495E7')};
   }
-`;
+`
 
-export const TextArea: FC<TextAreaProps> = ({ id, value, onChange, placeholder, rows = 4, hasError }) => {
-  return <StyledTextArea {...{ id, value, onChange, placeholder, rows }} $hasError={hasError} />;
-};
+export const TextArea: FC<TextAreaProps> = ({
+  id,
+  value,
+  onChange,
+  placeholder,
+  rows = 4,
+  hasError,
+}) => {
+  return (
+    <StyledTextArea
+      {...{ id, value, onChange, placeholder, rows }}
+      $hasError={hasError}
+    />
+  )
+}

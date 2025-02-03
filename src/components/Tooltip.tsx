@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import ErrorIcon from '../assets/error.svg';
+import styled from 'styled-components'
+import ErrorIcon from '../assets/error.svg'
 
 const TooltipContainer = styled.div`
   position: absolute;
   background-color: #fff;
-  border: 1px solid #ADBBC4;
+  border: 1px solid #adbbc4;
   padding: 8px;
   border-radius: 4px;
   display: flex;
@@ -17,9 +17,9 @@ const TooltipContainer = styled.div`
 
   &::before {
     position: absolute;
-    content: "";
+    content: '';
     border-left: 11px solid transparent;
-    border-top: 11px solid #ADBBC4;
+    border-top: 11px solid #adbbc4;
     top: -6px;
     left: 20px;
     transform: translateX(-50%) rotate(-45deg);
@@ -27,33 +27,31 @@ const TooltipContainer = styled.div`
 
   &::after {
     position: absolute;
-    content: "";
+    content: '';
     border-left: 10px solid transparent;
     border-top: 10px solid #fff;
     top: -5px;
     left: 20px;
     transform: translateX(-50%) rotate(-45deg);
   }
-`;
-
-
+`
 
 interface TooltipProps {
-    message: string;
-    targetElement: HTMLElement | null;
+  message: string
+  targetElement: HTMLElement | null
 }
 
 export const Tooltip: React.FC<TooltipProps> = ({ message, targetElement }) => {
-    if (!targetElement) return null;
+  if (!targetElement) return null
 
-    const rect = targetElement.getBoundingClientRect();
-    const top = rect.bottom + window.scrollY + 10; // ツールチップをターゲットの下に配置
-    const left = rect.left + window.scrollX + rect.width / 3;
+  const rect = targetElement.getBoundingClientRect()
+  const top = rect.bottom + window.scrollY + 10 // ツールチップをターゲットの下に配置
+  const left = rect.left + window.scrollX + rect.width / 3
 
-    return (
-        <TooltipContainer style={{ top, left }}>
-            <img src={ErrorIcon} alt="Error" />
-            {message}
-        </TooltipContainer>
-    );
-};
+  return (
+    <TooltipContainer style={{ top, left }}>
+      <img src={ErrorIcon} alt="Error" />
+      {message}
+    </TooltipContainer>
+  )
+}

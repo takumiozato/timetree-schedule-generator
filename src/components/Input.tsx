@@ -1,14 +1,14 @@
-import { FC } from 'react';
-import styled from 'styled-components';
+import { FC } from 'react'
+import styled from 'styled-components'
 
 type InputProps = {
-  id?: string;
-  type: "text" | "url";
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  hasError?: boolean;
-};
+  id?: string
+  type: 'text' | 'url'
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  placeholder?: string
+  hasError?: boolean
+}
 
 const StyledInput = styled.input<{ $hasError?: boolean }>`
   padding: 8px 16px;
@@ -21,10 +21,17 @@ const StyledInput = styled.input<{ $hasError?: boolean }>`
   &:focus {
     border-color: ${({ $hasError }) => ($hasError ? '#f44336' : '#2495E7')};
   }
-`;
+`
 
-export const Input: FC<InputProps> = ({ id, type, value, onChange, placeholder, hasError }) => {
-  const inputProps = { id, type, value, onChange, placeholder };
+export const Input: FC<InputProps> = ({
+  id,
+  type,
+  value,
+  onChange,
+  placeholder,
+  hasError,
+}) => {
+  const inputProps = { id, type, value, onChange, placeholder }
 
-  return <StyledInput {...inputProps} $hasError={hasError} />;
-};
+  return <StyledInput {...inputProps} $hasError={hasError} />
+}
