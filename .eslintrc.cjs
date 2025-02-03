@@ -10,5 +10,11 @@ module.exports = {
     ],
     rules: {
         'prettier/prettier': 'error',
+        '@typescript-eslint/no-unused-vars': [
+            'error',
+            {
+                'argsIgnorePattern': '^_' // 変数名が _ で始まる場合はエラーを出さない
+            }
+        ]
     },
 };

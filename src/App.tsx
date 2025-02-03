@@ -141,7 +141,7 @@ function App() {
                   required: '予定タイトルは必須です',
                   maxLength: { value: 50, message: '最大文字数を超えています' },
                 }}
-                render={({ field: { ...rest } }) => (
+                render={({ field: { ref: _, ...rest } }) => (
                   <Input
                     {...rest}
                     id="title"
@@ -170,7 +170,7 @@ function App() {
                     control={control}
                     defaultValue={new Date()}
                     rules={{ required: '開始日時は必須です' }}
-                    render={({ field: { ...rest } }) => (
+                    render={({ field: { ref: _, ...rest } }) => (
                       <DateInput
                         {...rest}
                         id="startDate"
@@ -190,7 +190,7 @@ function App() {
                       name="startTime"
                       control={control}
                       defaultValue="00:00"
-                      render={({ field: { ...rest } }) => (
+                      render={({ field: { ref: _, ...rest } }) => (
                         <TimeSelect {...rest} />
                       )}
                     />
@@ -208,7 +208,7 @@ function App() {
                       required: '終了日時は必須です',
                       validate: () => isValidEndTime(watch, allDay),
                     }}
-                    render={({ field: { ...rest } }) => (
+                    render={({ field: { ref: _, ...rest } }) => (
                       <DateInput
                         {...rest}
                         id="endDate"
@@ -228,7 +228,7 @@ function App() {
                       name="endTime"
                       control={control}
                       defaultValue="00:00"
-                      render={({ field: { ...rest } }) => (
+                      render={({ field: { ref: _, ...rest } }) => (
                         <TimeSelect {...rest} />
                       )}
                     />
@@ -241,7 +241,7 @@ function App() {
                 name="allDay"
                 control={control}
                 defaultValue={false}
-                render={({ field: { ...rest } }) => (
+                render={({ field: { ref: _, ...rest } }) => (
                   <StyledAllDayCheckboxLabel>
                     <Checkbox {...rest} checked={rest.value} />
                     終日
@@ -263,7 +263,7 @@ function App() {
                     message: '最大文字数を超えています',
                   },
                 }}
-                render={({ field: { ...rest } }) => (
+                render={({ field: { ref: _, ...rest } }) => (
                   <TextArea
                     {...rest}
                     id="memo"
@@ -295,7 +295,7 @@ function App() {
                     message: '最大文字数を超えています',
                   },
                 }}
-                render={({ field: { ...rest } }) => (
+                render={({ field: { ref: _, ...rest } }) => (
                   <Input
                     {...rest}
                     id="location"
@@ -332,7 +332,7 @@ function App() {
                     message: '最大文字数を超えています',
                   },
                 }}
-                render={({ field: { ...rest } }) => (
+                render={({ field: { ref: _, ...rest } }) => (
                   <Input
                     {...rest}
                     id="url"
