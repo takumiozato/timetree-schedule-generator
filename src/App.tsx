@@ -354,9 +354,9 @@ function App() {
           <StyledButtonWrapper>
             <Button type="submit">QRコード生成</Button>
           </StyledButtonWrapper>
-          {/* QRコードが生成された場合に表示 */}
         </StyledMainContent>
       </form>
+      {/* QRコードが生成された場合に表示 */}
       {qrCodeUrl && (
         <StyledMainContent>
           <StyledRow>

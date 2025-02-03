@@ -1,6 +1,6 @@
 import { UseFormWatch } from 'react-hook-form'
 import { getDateOnly } from './getDateOnly'
-import { FormData } from '../App'
+import type { FormData } from '../App'
 
 export function isValidEndTime(watch: UseFormWatch<FormData>, allDay: boolean) {
   const startDate = watch('startDate')

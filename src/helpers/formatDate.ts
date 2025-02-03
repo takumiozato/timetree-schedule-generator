@@ -38,5 +38,8 @@ export const formatDate = (date: Date | null, time: string) => {
   const absOffset = Math.abs(offset)
   const offsetString = `${sign}${String(absOffset / 60).padStart(2, '0')}${String(absOffset % 60).padStart(2, '0')}`
 
-  return `${year}${month}${day}T${hours}${minutes}00${offsetString}`
+  // timeが指定されていない場合は"+0000"を設定
+  const finalOffset = time ? offsetString : '+0000'
+
+  return `${year}${month}${day}T${hours}${minutes}00${finalOffset}`
 }

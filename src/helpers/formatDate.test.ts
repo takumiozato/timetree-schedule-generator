@@ -9,7 +9,7 @@ describe('formatDate', () => {
   it('日付のみが指定され、時間が指定されていない場合、正しく日付をフォーマットする', () => {
     const date = new Date('2025-02-02T12:30:00Z')
     const result = formatDate(date, '')
-    const expected = '20250202T000000+0900'
+    const expected = '20250202T000000+0000'
     expect(result).toBe(expected)
   })
 

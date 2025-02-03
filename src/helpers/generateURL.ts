@@ -12,8 +12,8 @@ export function generateURL(
   location: string,
   url: string,
 ) {
-  const start = formatDate(startDate, startTime)
-  const end = formatDate(endDate, endTime)
+  const start = formatDate(startDate, allDay ? '' : startTime)
+  const end = formatDate(endDate, allDay ? '' : endTime)
 
   // 予定データの組み立て
   const eventData = {
