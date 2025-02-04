@@ -15,6 +15,7 @@ import { isValidEndTime } from './helpers/validation'
 const StyledMainWrapper = styled.div`
   background-color: #2ecc87;
   padding: 40px 0;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   row-gap: 40px;
