@@ -12,7 +12,7 @@
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "types": [
-      "jest",
+      "vitest/globals",
       "node",
     ]
   }

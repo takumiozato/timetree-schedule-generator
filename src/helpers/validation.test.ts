@@ -1,13 +1,14 @@
 import { isValidEndTime } from './validation'
+import { Mock } from 'vitest'
 import { getDateOnly } from './getDateOnly'
 
-jest.mock('./getDateOnly')
+vi.mock('./getDateOnly')
 
 describe('isValidEndTime', () => {
-  const watchMock = jest.fn()
+  const watchMock = vi.fn()
 
   beforeEach(() => {
-    jest.resetAllMocks()
+    vi.resetAllMocks()
   })
 
   it('終了日時が開始日時より前の場合、エラーメッセージを返す (終日=true)', () => {
@@ -17,9 +18,9 @@ describe('isValidEndTime', () => {
     const endTime = '00:00'
     const allDay = true
 
-    // getDateOnlyのモック
-    ;(getDateOnly as jest.Mock).mockReturnValueOnce(startDate.getTime())
-    ;(getDateOnly as jest.Mock).mockReturnValueOnce(endDate.getTime())
+      // getDateOnlyのモック
+      ; (getDateOnly as Mock).mockReturnValueOnce(startDate.getTime())
+      ; (getDateOnly as Mock).mockReturnValueOnce(endDate.getTime())
 
     // watchモック
     watchMock.mockImplementation((field: string) => {
@@ -48,9 +49,9 @@ describe('isValidEndTime', () => {
     const endTime = '00:00'
     const allDay = true
 
-    // getDateOnlyのモック
-    ;(getDateOnly as jest.Mock).mockReturnValueOnce(startDate.getTime())
-    ;(getDateOnly as jest.Mock).mockReturnValueOnce(endDate.getTime())
+      // getDateOnlyのモック
+      ; (getDateOnly as Mock).mockReturnValueOnce(startDate.getTime())
+      ; (getDateOnly as Mock).mockReturnValueOnce(endDate.getTime())
 
     // watchモック
     watchMock.mockImplementation((field: string) => {
@@ -79,9 +80,9 @@ describe('isValidEndTime', () => {
     const endTime = '12:00'
     const allDay = false
 
-    // getDateOnlyのモック
-    ;(getDateOnly as jest.Mock).mockReturnValueOnce(startDate.getTime())
-    ;(getDateOnly as jest.Mock).mockReturnValueOnce(endDate.getTime())
+      // getDateOnlyのモック
+      ; (getDateOnly as Mock).mockReturnValueOnce(startDate.getTime())
+      ; (getDateOnly as Mock).mockReturnValueOnce(endDate.getTime())
 
     // watchモック
     watchMock.mockImplementation((field: string) => {
@@ -110,9 +111,9 @@ describe('isValidEndTime', () => {
     const endTime = '12:00'
     const allDay = false
 
-    // getDateOnlyのモック
-    ;(getDateOnly as jest.Mock).mockReturnValueOnce(startDate.getTime())
-    ;(getDateOnly as jest.Mock).mockReturnValueOnce(endDate.getTime())
+      // getDateOnlyのモック
+      ; (getDateOnly as Mock).mockReturnValueOnce(startDate.getTime())
+      ; (getDateOnly as Mock).mockReturnValueOnce(endDate.getTime())
 
     // watchモック
     watchMock.mockImplementation((field: string) => {
@@ -141,9 +142,9 @@ describe('isValidEndTime', () => {
     const endTime = '09:00'
     const allDay = false
 
-    // getDateOnlyのモック
-    ;(getDateOnly as jest.Mock).mockReturnValueOnce(startDate.getTime())
-    ;(getDateOnly as jest.Mock).mockReturnValueOnce(endDate.getTime())
+      // getDateOnlyのモック
+      ; (getDateOnly as Mock).mockReturnValueOnce(startDate.getTime())
+      ; (getDateOnly as Mock).mockReturnValueOnce(endDate.getTime())
 
     // watchモック
     watchMock.mockImplementation((field: string) => {
