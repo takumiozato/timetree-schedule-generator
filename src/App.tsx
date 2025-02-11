@@ -208,9 +208,13 @@ function App() {
                     defaultValue={new Date()}
                     rules={{
                       required: '終了日時は必須です',
-                      validate: () => allDay ?
-                        !isValidEndTimeForAllDay(watch("startDate"), watch("endDate")) && "終了日時が開始日時を超えています" :
-                        !isValidEndTimeForTimedDay(watch("startDate"), watch("endDate"), watch("startTime"), watch("endTime")) && "終了日時が開始日時を超えています"
+                      validate: () => {
+                        if (allDay) {
+                          return isValidEndTimeForAllDay(watch("startDate"), watch("endDate")) || "終了日時が開始日時を超えています";
+                        }
+                        return isValidEndTimeForTimedDay(watch("startDate"), watch("endDate"), watch("startTime"), watch("endTime")) || "終了日時が開始日時を超えています";
+                      }
+
                     }}
                     render={({ field: { ref: _, ...rest } }) => (
                       <DateInput
