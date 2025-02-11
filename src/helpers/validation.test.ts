@@ -39,7 +39,7 @@ describe('isValidEndTime', () => {
     })
 
     const result = isValidEndTime(watchMock, allDay)
-    expect(result).toBe('終了日時が開始日時を超えています')
+    expect(result).toBe(false)
   })
 
   it('終了日時が開始日時より後ろの場合、trueを返す (終日=true)', () => {
@@ -163,6 +163,6 @@ describe('isValidEndTime', () => {
     })
 
     const result = isValidEndTime(watchMock, allDay)
-    expect(result).toBe('終了日時が開始日時を超えています')
+    expect(result).toBe(false)
   })
 })

@@ -2,7 +2,7 @@ import { UseFormWatch } from 'react-hook-form'
 import { getDateOnly } from './getDateOnly'
 import type { FormData } from '../App'
 
-export function isValidEndTime(watch: UseFormWatch<FormData>, allDay: boolean) {
+export function isValidEndTime(watch: UseFormWatch<FormData>, allDay: boolean): boolean {
   const startDate = watch('startDate')
   const endDate = watch('endDate')
   const startTime = watch('startTime')
@@ -11,11 +11,9 @@ export function isValidEndTime(watch: UseFormWatch<FormData>, allDay: boolean) {
   const startDateOnly = getDateOnly(startDate)
   const endDateOnly = getDateOnly(endDate)
 
-  const errorMessage = '終了日時が開始日時を超えています'
-
   if (allDay) {
     if (startDateOnly > endDateOnly) {
-      return errorMessage
+      return false
     }
   } else {
     const startHour = parseInt(startTime.split(':')[0], 10)
@@ -25,7 +23,7 @@ export function isValidEndTime(watch: UseFormWatch<FormData>, allDay: boolean) {
       startDateOnly > endDateOnly ||
       (startDateOnly == endDateOnly && endHour < startHour)
     ) {
-      return errorMessage
+      return false
     }
   }
 

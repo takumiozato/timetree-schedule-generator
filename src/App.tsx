@@ -207,7 +207,7 @@ function App() {
                     defaultValue={new Date()}
                     rules={{
                       required: '終了日時は必須です',
-                      validate: () => isValidEndTime(watch, allDay),
+                      validate: () => !isValidEndTime(watch, allDay) && "終了日時が開始日時を超えています"
                     }}
                     render={({ field: { ref: _, ...rest } }) => (
                       <DateInput
