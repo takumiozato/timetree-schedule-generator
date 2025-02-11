@@ -10,7 +10,7 @@ import { Button } from './components/Button'
 import { useForm, Controller } from 'react-hook-form'
 import { Tooltip } from './components/Tooltip'
 import { useQRCode } from './hooks/useQRCode'
-import { isValidEndTime } from './helpers/validation'
+import { isValidEndTimeForTimedDay, isValidEndTimeForAllDay } from './helpers/validation'
 
 const StyledMainWrapper = styled.div`
   background-color: #2ecc87;
@@ -207,7 +207,9 @@ function App() {
                     defaultValue={new Date()}
                     rules={{
                       required: '終了日時は必須です',
-                      validate: () => !isValidEndTime(watch, allDay) && "終了日時が開始日時を超えています"
+                      validate: () => allDay ?
+                        !isValidEndTimeForAllDay(watch("startDate"), watch("endDate")) && "終了日時が開始日時を超えています" :
+                        !isValidEndTimeForTimedDay(watch("startDate"), watch("endDate"), watch("startTime"), watch("endTime")) && "終了日時が開始日時を超えています"
                     }}
                     render={({ field: { ref: _, ...rest } }) => (
                       <DateInput

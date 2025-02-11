@@ -1,12 +1,10 @@
-import { isValidEndTime } from './validation'
+import { isValidEndTimeForTimedDay, isValidEndTimeForAllDay } from './validation'
 import { Mock } from 'vitest'
 import { getDateOnly } from './getDateOnly'
 
 vi.mock('./getDateOnly')
 
 describe('isValidEndTime', () => {
-  const watchMock = vi.fn()
-
   beforeEach(() => {
     vi.resetAllMocks()
   })
@@ -14,62 +12,24 @@ describe('isValidEndTime', () => {
   it('終了日時が開始日時より前の場合、エラーメッセージを返す (終日=true)', () => {
     const startDate = new Date('2025-02-02')
     const endDate = new Date('2025-02-01')
-    const startTime = '00:00'
-    const endTime = '00:00'
-    const allDay = true
 
       // getDateOnlyのモック
       ; (getDateOnly as Mock).mockReturnValueOnce(startDate.getTime())
       ; (getDateOnly as Mock).mockReturnValueOnce(endDate.getTime())
 
-    // watchモック
-    watchMock.mockImplementation((field: string) => {
-      switch (field) {
-        case 'startDate':
-          return startDate
-        case 'endDate':
-          return endDate
-        case 'startTime':
-          return startTime
-        case 'endTime':
-          return endTime
-        default:
-          return null
-      }
-    })
-
-    const result = isValidEndTime(watchMock, allDay)
+    const result = isValidEndTimeForAllDay(startDate, endDate)
     expect(result).toBe(false)
   })
 
   it('終了日時が開始日時より後ろの場合、trueを返す (終日=true)', () => {
     const startDate = new Date('2025-01-01')
     const endDate = new Date('2025-01-02')
-    const startTime = '00:00'
-    const endTime = '00:00'
-    const allDay = true
 
       // getDateOnlyのモック
       ; (getDateOnly as Mock).mockReturnValueOnce(startDate.getTime())
       ; (getDateOnly as Mock).mockReturnValueOnce(endDate.getTime())
 
-    // watchモック
-    watchMock.mockImplementation((field: string) => {
-      switch (field) {
-        case 'startDate':
-          return startDate
-        case 'endDate':
-          return endDate
-        case 'startTime':
-          return startTime
-        case 'endTime':
-          return endTime
-        default:
-          return null
-      }
-    })
-
-    const result = isValidEndTime(watchMock, allDay)
+    const result = isValidEndTimeForAllDay(startDate, endDate)
     expect(result).toBe(true)
   })
 
@@ -78,29 +38,12 @@ describe('isValidEndTime', () => {
     const endDate = new Date('2025-01-01')
     const startTime = '10:00'
     const endTime = '12:00'
-    const allDay = false
 
       // getDateOnlyのモック
       ; (getDateOnly as Mock).mockReturnValueOnce(startDate.getTime())
       ; (getDateOnly as Mock).mockReturnValueOnce(endDate.getTime())
 
-    // watchモック
-    watchMock.mockImplementation((field: string) => {
-      switch (field) {
-        case 'startDate':
-          return startDate
-        case 'endDate':
-          return endDate
-        case 'startTime':
-          return startTime
-        case 'endTime':
-          return endTime
-        default:
-          return null
-      }
-    })
-
-    const result = isValidEndTime(watchMock, allDay)
+    const result = isValidEndTimeForTimedDay(startDate, endDate, startTime, endTime)
     expect(result).toBe(true)
   })
 
@@ -109,29 +52,12 @@ describe('isValidEndTime', () => {
     const endDate = new Date('2025-01-01')
     const startTime = '10:00'
     const endTime = '12:00'
-    const allDay = false
 
       // getDateOnlyのモック
       ; (getDateOnly as Mock).mockReturnValueOnce(startDate.getTime())
       ; (getDateOnly as Mock).mockReturnValueOnce(endDate.getTime())
 
-    // watchモック
-    watchMock.mockImplementation((field: string) => {
-      switch (field) {
-        case 'startDate':
-          return startDate
-        case 'endDate':
-          return endDate
-        case 'startTime':
-          return startTime
-        case 'endTime':
-          return endTime
-        default:
-          return null
-      }
-    })
-
-    const result = isValidEndTime(watchMock, allDay)
+    const result = isValidEndTimeForTimedDay(startDate, endDate, startTime, endTime)
     expect(result).toBe(true)
   })
 
@@ -140,29 +66,12 @@ describe('isValidEndTime', () => {
     const endDate = new Date('2025-01-01')
     const startTime = '10:00'
     const endTime = '09:00'
-    const allDay = false
 
       // getDateOnlyのモック
       ; (getDateOnly as Mock).mockReturnValueOnce(startDate.getTime())
       ; (getDateOnly as Mock).mockReturnValueOnce(endDate.getTime())
 
-    // watchモック
-    watchMock.mockImplementation((field: string) => {
-      switch (field) {
-        case 'startDate':
-          return startDate
-        case 'endDate':
-          return endDate
-        case 'startTime':
-          return startTime
-        case 'endTime':
-          return endTime
-        default:
-          return null
-      }
-    })
-
-    const result = isValidEndTime(watchMock, allDay)
+    const result = isValidEndTimeForTimedDay(startDate, endDate, startTime, endTime)
     expect(result).toBe(false)
   })
 })
