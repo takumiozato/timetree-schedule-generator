@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import styled from 'styled-components'
+import { colors } from '../consts/colors'
 
 type ButtonProps = {
   type?: 'button' | 'submit' | 'reset'
@@ -12,18 +13,18 @@ const StyledButton = styled.button`
   padding: 10px 16px;
   border-radius: 4px;
   border: none;
-  background-color: #2ecc87;
+  background-color: ${colors.brand};
   color: #fff;
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
 
   &:hover {
-    background-color: #2e9f64;
+    background-color: ${colors.brandHover};
   }
 
   &:disabled {
-    background-color: #baead5;
+    background-color: ${colors.brandDisabled};
     cursor: not-allowed;
   }
 `

@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 import ErrorIcon from '../assets/error.svg'
+import { colors } from '../consts/colors'
 
 const TooltipContainer = styled.div`
   position: absolute;
   background-color: #fff;
-  border: 1px solid #adbbc4;
+  border: 1px solid ${colors.border};
   padding: 8px;
   border-radius: 4px;
   display: flex;
@@ -19,7 +20,7 @@ const TooltipContainer = styled.div`
     position: absolute;
     content: '';
     border-left: 11px solid transparent;
-    border-top: 11px solid #adbbc4;
+    border-top: 11px solid ${colors.border};
     top: -6px;
     left: 20px;
     transform: translateX(-50%) rotate(-45deg);

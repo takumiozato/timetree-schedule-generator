@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 import checkIcon from '../assets/check.svg'
+import { colors } from '../consts/colors'
 
 type CheckboxProps = {
   checked: boolean
@@ -11,7 +12,7 @@ const StyledCheckbox = styled.input`
   width: 24px;
   height: 24px;
   border-radius: 4px;
-  border: 1px solid #adbbc4;
+  border: 1px solid ${colors.border};
   appearance: none;
   cursor: pointer;
 

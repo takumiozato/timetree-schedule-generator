@@ -4,14 +4,15 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { format } from 'date-fns'
 import { ja } from 'date-fns/locale'
 import styled from 'styled-components'
+import { colors } from '../consts/colors'
 
 const StyledDateInput = styled.div<{ $hasError?: boolean }>`
   padding: 8px 16px;
   border-radius: 4px;
-  background-color: #f0f5f6;
+  background-color: ${colors.bgGray};
   font-size: 16px;
   font-weight: 500;
-  border: ${({ $hasError }) => $hasError && '1px solid #f44336'};
+  border: ${({ $hasError }) => $hasError && `1px solid ${colors.error}`};
 
   button {
     border: none;

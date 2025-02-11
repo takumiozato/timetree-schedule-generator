@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import styled from 'styled-components'
+import { colors } from '../consts/colors'
 
 type TextAreaProps = {
   id?: string
@@ -13,7 +14,7 @@ type TextAreaProps = {
 const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
   padding: 12px 16px;
   border-radius: 4px;
-  border: 1px solid ${({ $hasError }) => ($hasError ? '#f44336' : '#adbbc4')};
+  border: 1px solid ${({ $hasError }) => ($hasError ? colors.error : colors.border)};
   font-size: 16px;
   font-weight: 500;
   line-height: 1.4;
@@ -21,7 +22,7 @@ const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
   resize: none;
 
   &:focus {
-    border-color: ${({ $hasError }) => ($hasError ? '#f44336' : '#2495E7')};
+    border-color: ${({ $hasError }) => ($hasError ? colors.error : colors.focus)};
   }
 `
 

@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import styled from 'styled-components'
+import { colors } from '../consts/colors'
 
 type TimeSelectProps = {
   value: string
@@ -9,7 +10,7 @@ type TimeSelectProps = {
 const StyledTimeSelect = styled.select`
   padding: 8px 16px;
   border-radius: 4px;
-  background-color: #f0f5f6;
+  background-color: ${colors.bgGray};
   font-size: 16px;
   font-weight: 500;
   border: none;

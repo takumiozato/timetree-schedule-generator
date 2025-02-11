@@ -11,9 +11,10 @@ import { useForm, Controller } from 'react-hook-form'
 import { Tooltip } from './components/Tooltip'
 import { useQRCode } from './hooks/useQRCode'
 import { isValidEndTimeForTimedDay, isValidEndTimeForAllDay } from './helpers/validation'
+import { colors } from './consts/colors'
 
 const StyledMainWrapper = styled.div`
-  background-color: #2ecc87;
+  background-color: ${colors.brand};
   padding: 40px 0;
   min-height: 100vh;
   display: flex;

@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import styled from 'styled-components'
+import { colors } from '../consts/colors'
 
 const StyledLabel = styled.label`
   font-size: 14px;
@@ -10,7 +11,7 @@ const StyledLabel = styled.label`
 `
 
 const RequiredMark = styled.span`
-  color: #ff3d72;
+  color: ${colors.error};
 `
 
 type LabelProps = {
